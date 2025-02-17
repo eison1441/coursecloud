@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+
+    
+    
+      <div class="bg-background text-teal-foreground min-h-screen flex flex-col items-center justify-center">
+        <div class="max-w-md w-full bg-card shadow-lg rounded-lg overflow-hidden">
+          <div class="bg-teal py-4 px-6">
+            <h1 class="text-2xl font-bold">Payment Details</h1>
+          </div>
+          <div class="p-6">
+            <h1 class="class=mt-1 block w-full px-3 py-2 border border-input rounded-md shadow-sm focus:outline-none focus:ring focus:ring-teal focus:border-transparent"> {{amount}}</h1>
+            <button class="mt-6 bg-teal hover:bg-teal/80 text-teal-foreground py-2 px-4 rounded-md" id="rzp-button1">Pay Now</button>
+          </div>
+        </div>
+      </div>
+    
+
+    <!-- <p>rzp_key_id{{rzp_key_id}}</p>
+    <p>amount{{amount}}</p>
+    <p>razp_order_id{{rzp_order_id}}</p>
+
+    <button id="rzp-button1">Pay with Razorpay</button> -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "{{rzp_key_id}}", // Enter the Key ID generated from the Dashboard
+            "amount": "{{amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Acme Corp",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": "{{rzp_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "callback_url": "{% url 'payment-verify'%}",
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9000090000"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+    
+</body>
+</html>
+
+
+

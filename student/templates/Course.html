@@ -1,0 +1,144 @@
+{%extends 'base.html'%}
+
+{% load embed_video_tags %}
+
+{%block main_block%}
+
+
+    <!-- <div class="mt-20">
+        <div class="">
+
+            <h1>Course:{{course.title}}</h1>
+            <p>Course details:{{course.description}}</p>
+            <p>Price:{{course.price}}</p>
+            <p>Instructor:{{course.owner}}</p>
+
+            <hr>
+            <hr>
+
+            {%for m in course.modules.all%}
+                <h1>{{forloop.counter}} Module:{{m.title}}  ({{m.lessons.all.count}})</h1>
+
+                {%for l in m.lessons.all%}
+                        <h3>{{forloop.counter}}-lesson:{{l.title}} </h3>
+                {%endfor%}
+            {%endfor%}
+            
+ <section class="pt-20 bg-gradient-to-b from-teal-900 to-teal-500">
+        </div>
+    </div> -->
+
+    <div class="pt-20">
+        <!-- Video Preview Section -->
+        <div class="bg-gradient-to-b from-teal-900 to-teal-500 w-full">
+            <div class="max-w-screen-xl mx-auto flex px-4 py-8">
+                <div class="aspect-w-16 aspect-h-9 ">
+
+                    {%video course.thumbnail as my_video%}
+
+                    {% video my_video '1200x675' %}
+
+                    {%endvideo%}
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Info and Modules -->
+        <div class="max-w-screen-xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Course Information -->
+            <div class="lg:col-span-2">
+                <h1 class="text-3xl text-gray-900 dark:text-white font-bold mb-4">{{course.title}}</h1>
+                <div class="flex items-center mb-4 text-teal-600">
+                    <span class="mr-4"><i class="fas fa-user mr-2"></i>{{course.owner}}</span>
+                    <span class="mr-4"><i class="fas fa-clock mr-2"></i>{{course.created_at}}</span>
+                    <span><i class="fas fa-users mr-2"></i>1,234 students</span>
+                </div>
+                <p class="text-teal-600 mb-6">{{course.description}}</p>
+                
+                <!-- Course Content Modules -->
+                <div class="space-y-4">
+                    <h2 class="text-2xl text-gray-900 dark:text-white font-bold mb-4">Course Content</h2>
+                    
+                    <!-- Module 1 -->
+                    {%for m in course.modules.all%}
+                    <div class="border rounded-lg  overflow-hidden bg-white">
+                        <button class="w-full px-6 py-4 bg-teal-50 hover:bg-teal-200 flex items-center justify-between" onclick="toggleModule('module{{forloop.counter}}')">
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-down mr-4 text-teal-600"></i>
+                                <span class="font-semibold">Module {{forloop.counter}}: {{m.title}}</span>
+                            </div>
+                            <span class="text-teal-600">{{m.lessons.all.count}} • 45 min</span>
+                        </button>
+                        <div id="module{{forloop.counter}}" class="hidden">
+                            <div class="p-4 space-y-2">
+                                {%for l in m.lessons.all%}
+                                    <div class="flex items-center p-2 hover:bg-teal-50 rounded">
+                                        <i class="fas fa-play-circle text-teal-600 mr-4"></i>
+                                        <span>{{l.title}}</span>
+                                        <span class="ml-auto text-teal-600">15 min</span>
+                                    </div>
+                                {%endfor%}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+
+                    
+                </div>
+            </div>
+
+            <!-- Course Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-lg shadow-lg sticky top-24">
+                    <div class="text-3xl font-bold mb-4 text-teal-700">₹ {{course.price}}</div>
+                    <a href="{%url 'add-to-cart' course.id%}">
+                        <button class="w-full bg-teal-600 text-white py-3 rounded-lg mb-4 hover:bg-teal-700 transition duration-300">
+                            Enroll Now
+                        </button>
+                    </a>
+                    <button class="w-full border border-teal-600 text-teal-600 py-3 rounded-lg mb-6 hover:bg-teal-50 transition duration-300">
+                        Add to Wishlist
+                    </button>
+                    <div class="space-y-4 ">
+                        <h3 class="font-bold text-lg">This course includes:</h3>
+                        <div class="flex items-center">
+                            <i class="fas fa-video mr-3 text-teal-600"></i>
+                            <span>20 hours of video content</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-file-alt mr-3 text-teal-600"></i>
+                            <span>15 coding exercises</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-trophy mr-3 text-teal-600"></i>
+                            <span>Certificate of completion</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-infinity mr-3 text-teal-600"></i>
+                            <span>Lifetime access</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleModule(moduleId) {
+            const module = document.getElementById(moduleId);
+            const isHidden = module.classList.contains('hidden');
+            const allModules = document.querySelectorAll('[id^="module"]');
+            
+            // Close all modules
+            allModules.forEach(mod => mod.classList.add('hidden'));
+            
+            // Open clicked module if it was closed
+            if (isHidden) {
+                module.classList.remove('hidden');
+            }
+        }
+    </script>
+{%endblock%}

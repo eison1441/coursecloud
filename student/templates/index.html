@@ -1,0 +1,139 @@
+
+{%extends 'base.html'%}
+
+{%load static%}
+
+
+{%block main_block%}
+
+ <!-- Hero Section -->
+ <section class="pt-20 bg-gradient-to-b from-teal-900 to-teal-500">
+    <div class="max-w-screen-xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-8 items-center">
+        <div class="text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Transform Your Future with Online Learning</h1>
+            <p class="text-lg mb-8">Access world-class education from anywhere. Start your learning journey today with our expert-led courses.</p>
+            <button class="bg-white text-teal-900 hover:bg-yellow-100 px-6 py-3 rounded-lg font-semibold transition duration-300">
+                Browse Courses
+            </button>
+        </div>
+        <div class="flex justify-center">
+            <img src="../static/images/registration.jpg
+            " alt="Students learning" class="rounded-lg shadow-xl">
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Course Cards Section -->
+<section class="max-w-screen-xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Popular Courses</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Course Card 1 -->
+       
+       {%for c in courses%}
+
+       <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+        <img src="{{c.picture.url}}" alt="Course 1" class="w-full h-48 object-cover">
+        <div class="p-6">
+            <div class="text-teal-500 text-sm font-semibold mb-2">
+                {%for cat in c.category_objects.all%}
+                    <span>{{cat}} |</span>
+                {%endfor%}
+            </div>
+            <h3 class="text-xl font-bold mb-2">{{c.title}}</h3>
+            <p class="text-gray-600 mb-4">{{c.description}}</p>
+            <div class="flex justify-between items-center">
+                <span class="text-teal-900 font-bold">₹{{c.price}}</span>
+               
+
+                {%if c.id in purchased_courses%}
+                    <a href="#" class="bg-teal-600 hover:bg-teal-800 text-white px-4 py-2 rounded-lg transition duration-300">
+                        Enrolled
+                    </a>
+                {%else%}
+                    <a href="{%url 'course-detail' c.id %}" class="bg-teal-600 hover:bg-teal-800 text-white px-4 py-2 rounded-lg transition duration-300">
+                        Enroll Now
+                    </a>
+                {%endif%}
+
+
+            </div>
+        </div>
+    </div>
+
+
+       {%endfor%}
+       
+    </div>
+</section>
+<section id="contact" class="contact-section max-w-screen-xl mx-auto px-4 py-16" >
+    <div class="container">
+        <h2 class="text-center mt-2 mb-3">Contact Me</h2>
+        <div class="row mb-4">
+            <div class="col-md-4 shadow">
+                <div class="contact-card">
+                    <i class="bi bi-geo-alt"></i>
+                    <h3 class="small-text">Address</h3>
+                    <p class="small-text"></p>
+                </div>
+            </div>
+            <div class="col-md-4 shadow">
+                <div class="contact-card">
+                    <i class="bi bi-envelope"></i>
+                    <h3 class="small-text">Email</h3>
+                    <p class="small-text">ABC@gmail.com</p>
+                </div>
+            </div>
+            <div class="col-md-4 shadow">
+                <div class="contact-card">
+                    <i class="bi bi-telephone"></i>
+                    <h3 class="small-text">Phone</h3>
+                    <p class="small-text">+91 22222255555</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="text-center">
+            <a href="https://wa.me/1234567890" class="whatsapp-icon" target="_blank">
+                <i class="bi bi-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="max-w-screen-xl mx-auto px-4 py-16">
+            <form class="mt-5 max-w-screen-xl mx-auto px-4 py-16">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="First Name">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email">
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+ <footer class="text-center py-6 bg-gray-200 mt-130">
+    <p class="text-gray-700">&copy; 2025 MyWebsite. All rights reserved.</p>
+</footer> 
+
+{%endblock%}
+
+
+<!-- from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) -->

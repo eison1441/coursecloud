@@ -1,0 +1,76 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../static/css/style.css">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <nav class="bg-teal-700 fixed w-full z-20 top-0 left-0 sticky">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center">
+                <span class="self-center text-2xl font-semibold text-white">Course Cloud</span>
+            </a>
+            
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
+                    <li><a href="{%url 'index'%}" class="block py-2 pl-3 pr-4 text-white hover:text-teal-200">Home</a></li>
+                    <li><a href="#course" class="block py-2 pl-3 pr-4 text-white hover:text-teal-200">Courses</a></li>
+                    <li><a href="#" class="block py-2 pl-3 pr-4 text-white hover:text-teal-200">Resources</a></li>
+                    <li><a href="#contact" class="block py-2 pl-3 pr-4 text-white hover:text-teal-200">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Icons Section -->
+            <div class="flex items-center space-x-6 md:order-2">
+                <!-- My Courses -->
+                <div class="relative group">
+                    <a href="{%url 'My-Courses'%}" class="text-white hover:text-teal-200">
+                        <i class="fas fa-book-open text-xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{{count}}</span>
+                        <span class="hidden group-hover:block absolute top-full right-0 mt-2 bg-white text-teal-700 text-sm py-1 px-2 rounded shadow-lg whitespace-nowrap">My Courses</span>
+                    </a>
+                </div>
+
+                <!-- Wishlist -->
+                <div class="relative group">
+                    <a href="#" class="text-white hover:text-teal-200">
+                        <i class="fas fa-heart fa-beat text-xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">5</span>
+                        <span class="hidden group-hover:block absolute top-full right-0 mt-2 bg-white text-teal-700 text-sm py-1 px-2 rounded shadow-lg whitespace-nowrap">Wishlist</span>
+                    </a>
+                </div>
+
+                <!-- Cart -->
+                <div class="relative group">
+                    <a href="{%url 'cart-summery'%}" class="text-white hover:text-teal-200">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{{request.user.basket.all.count}}</span>
+                        <span class="hidden group-hover:block absolute top-full right-0 mt-2 bg-white text-teal-700 text-sm py-1 px-2 rounded shadow-lg whitespace-nowrap">Cart</span>
+                    </a>
+                </div>
+
+                <a href="{%url 'signout'%}" class="text-white bg-teal-600 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-4 py-2 text-center"><i class="bi bi-box-arrow-left"></i>  Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    
+        {%block main_block%}
+    
+    
+        {%endblock%}
+    
+    
+</body>
+</html>

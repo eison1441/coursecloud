@@ -1,0 +1,79 @@
+{%extends 'base.html'%}
+
+{%block main_block%}
+
+
+
+<div class="min-h-screen">
+    <!-- Header Section -->
+  
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Progress Overview -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Learning Progress</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-red-50 rounded-lg p-4">
+                    <p class="text-sm text-red-600 mb-1">Courses in Progress</p>
+                    <p class="text-2xl font-bold text-red-700">4</p>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4">
+                    <p class="text-sm text-green-600 mb-1">Completed Courses</p>
+                    <p class="text-2xl font-bold text-green-700">6</p>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <p class="text-sm text-blue-600 mb-1">Total Hours Learning</p>
+                    <p class="text-2xl font-bold text-blue-700">45.5</p>
+                </div>
+                <div class="bg-yellow-50 rounded-lg p-4">
+                    <p class="text-sm text-yellow-600 mb-1">Certificates Earned</p>
+                    <p class="text-2xl font-bold text-yellow-700">3</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Filters -->
+        <div class="flex items-center space-x-4 mb-6">
+            <button class="bg-teal-600 text-white px-4 py-2 rounded-lg">All Courses</button>
+            <button class="text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg">In Progress</button>
+            <button class="text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg">Completed</button>
+            <button class="text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg">Not Started</button>
+        </div>
+
+        <!-- Course Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Course Card 1 -->
+            {%for o in orders%}
+
+                {%for c in o.course_objects.all%}
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="relative">
+                            <img src="{{c.picture.url}}" alt="Course thumbnail" class="w-full h-48 object-cover">
+                            <div class="absolute top-4 right-4 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                                75% Complete
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{c.title}}</h3>
+                            <p class="text-gray-600 text-sm mb-4">{{c.description}}</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="{{c.picture.url}}" alt="Instructor" class="w-8 h-8 rounded-full">
+                                    <span class="ml-2 text-sm text-gray-600">{{c.owner}}</span>
+                                </div>
+                                <a href="{%url 'lesson-detail' c.id%}" class="text-teal-600 hover:text-teal-700 font-medium">Continue →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                {%endfor%}
+            {%endfor%}
+
+            
+            
+        </div>
+    </main>
+</div>
+
+{%endblock%}
